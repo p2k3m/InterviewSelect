@@ -1,0 +1,84 @@
+service: interviewselect-mvp
+frameworkVersion: '3'
+configValidationMode: warn
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ${opt:region, 'us-east-1'}
+  stage: ${opt:stage, 'dev'}
+  environment:
+    USER_TABLE: ${self:custom.userTable}
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1'
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:PutItem
+            - dynamodb:GetItem
+            - dynamodb:DeleteItem
+            - dynamodb:UpdateItem
+          Resource: !GetAtt UsersTable.Arn
+        - Effect: Allow
+          Action:
+            - cognito-idp:SignUp
+            - cognito-idp:AdminDeleteUser
+          Resource: '*'
+
+functions:
+  registerUser:
+    handler: dist/handlers/registerUser.handler
+    package:
+      artifact: ../backend/user-service/dist/registerUser.zip
+    events:
+      - httpApi:
+          method: post
+          path: /users
+  getUserProfile:
+    handler: dist/handlers/getUserProfile.handler
+    package:
+      artifact: ../backend/user-service/dist/getUserProfile.zip
+    events:
+      - httpApi:
+          method: get
+          path: /users/{id}
+  updateUserProfile:
+    handler: dist/handlers/updateUserProfile.handler
+    package:
+      artifact: ../backend/user-service/dist/updateUserProfile.zip
+    events:
+      - httpApi:
+          method: put
+          path: /users/{id}
+  deleteUserProfile:
+    handler: dist/handlers/deleteUserProfile.handler
+    package:
+      artifact: ../backend/user-service/dist/deleteUserProfile.zip
+    events:
+      - httpApi:
+          method: delete
+          path: /users/{id}
+  listMarketplaceProfiles:
+    handler: ../backend/marketplace-service/dist/handlers/listProfiles.handler
+    events:
+      - httpApi:
+          method: get
+          path: /marketplace/profiles
+
+resources:
+  Resources:
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.userTable}
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+
+custom:
+  userTable: interviewselect-users-${self:provider.stage}
