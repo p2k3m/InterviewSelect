@@ -3,6 +3,28 @@
 ## Overview
 InterviewSelect is a two-sided marketplace that expands on interview.io by enabling freelance interviewers to monetize their expertise while helping companies source vetted technical interviewers on demand. The platform combines transparent freelancer profiles, direct booking flows, and built-in interview tooling to deliver an end-to-end hiring augmentation solution. This repository aggregates product requirements, architecture decisions, and deployment practices that guide the future implementation.
 
+## MVP Scope (Phase 0)
+The `main` branch now contains a minimal viable prototype that validates the core registration-to-discovery loop without introducing payments or live interview tooling. The goal of this milestone is to prove out the microservice boundaries, AWS integration strategy, and baseline UI/UX before investing in the broader roadmap.
+
+### Components
+- **Frontend** (`frontend/`): Vite + React SPA with routes for the dashboard, profile read/edit views, and a static interviewer list that mirrors the Marketplace Service response.
+- **User Service** (`backend/user-service/`): TypeScript Lambda handlers for registration (Cognito sign-up + DynamoDB persistence), profile retrieval, updates, and deletion.
+- **Marketplace Service** (`backend/marketplace-service/`): Stub Lambda that returns a curated list of interviewers to validate discovery flows.
+- **Infrastructure** (`infrastructure/`): Serverless configuration stubs and IaC notes for wiring API Gateway → Lambda → DynamoDB.
+
+### Data Plane
+- **Authentication**: AWS Cognito user pools with email/password sign-up. Profiles are tagged via custom attributes referencing DynamoDB identifiers.
+- **Storage**: DynamoDB `interviewselect-users` table tracks freelancer and company metadata. Profile image upload targets S3 (left optional for this phase).
+- **APIs**: API Gateway exposes RESTful endpoints that proxy to individual Lambda functions per route.
+
+### Local Development
+1. Install dependencies via npm workspaces: `npm install` at the repository root.
+2. Run the React dev server: `npm run dev --workspace interviewselect-frontend`.
+3. Execute unit tests: `npm run test:unit --workspace user-service`.
+4. Launch LocalStack (Docker) and run integration tests: `npm run test:integration --workspace user-service`.
+
+Additional setup instructions, including example AWS profiles, are documented in `docs/deployment-guide.md`.
+
 ## Core Capabilities
 - **Freelancer registration and profiles**: Interviewers publish rich profiles with LinkedIn links, certifications, prior employers, years of experience, domains (system design, ML, etc.), configurable per-interview pricing, and synced availability calendars.
 - **Company discovery and selection**: Hiring teams create organizational profiles, browse a searchable interviewer directory, and filter by expertise, experience, ratings, pricing, and real-time availability.

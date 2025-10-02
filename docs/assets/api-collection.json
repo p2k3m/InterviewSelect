@@ -1,0 +1,41 @@
+{
+  "info": {
+    "name": "InterviewSelect MVP",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Register User",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/users",
+          "host": ["{{baseUrl}}"],
+          "path": ["users"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"freelancer@example.com\",\n  \"password\": \"Password123!\",\n  \"type\": \"freelancer\",\n  \"profile\": {\n    \"name\": \"Demo Freelancer\",\n    \"bio\": \"Focus on system design interviews\",\n    \"yearsOfExperience\": 6\n  }\n}"
+        }
+      }
+    },
+    {
+      "name": "Get Profile",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/users/{{userId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["users", "{{userId}}"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.dev.interviewselect.com" },
+    { "key": "userId", "value": "" }
+  ]
+}

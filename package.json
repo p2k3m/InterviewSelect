@@ -1,0 +1,14 @@
+{
+  "name": "interviewselect",
+  "private": true,
+  "workspaces": [
+    "backend/user-service",
+    "backend/marketplace-service",
+    "frontend"
+  ],
+  "scripts": {
+    "test": "npm run test --workspaces",
+    "test:unit": "npm run test:unit --workspace user-service",
+    "test:integration": "npm run test:integration --workspace user-service"
+  }
+}

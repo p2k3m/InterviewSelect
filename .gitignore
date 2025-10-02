@@ -1,0 +1,9 @@
+node_modules/
+.pnpm-store/
+.env
+.dist/
+*.log
+coverage/
+backend/**/dist/
+frontend/dist/
+.DS_Store

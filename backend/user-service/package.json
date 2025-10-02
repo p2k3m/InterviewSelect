@@ -1,0 +1,33 @@
+{
+  "name": "user-service",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "package": "ts-node ./scripts/package.ts",
+    "lint": "eslint \"src/**/*.ts\"",
+    "test": "jest --runInBand",
+    "test:unit": "jest --runInBand --selectProjects unit",
+    "test:integration": "jest --runInBand --selectProjects integration"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.633.0",
+    "@aws-sdk/client-dynamodb": "^3.633.0",
+    "@aws-sdk/lib-dynamodb": "^3.633.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.138",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^20.12.7",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "jest": "^29.7.0",
+    "archiver": "^7.0.1",
+    "esbuild": "^0.21.4",
+    "ts-jest": "^29.2.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
