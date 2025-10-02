@@ -1,7 +1,7 @@
 # InterviewSelect
 
 ## Overview
-InterviewSelect is a two-sided marketplace that expands on interview.io by enabling freelance interviewers to monetize their expertise while helping companies source vetted technical interviewers on demand. The platform combines transparent freelancer profiles, direct booking flows, and built-in interview tooling to deliver an end-to-end hiring augmentation solution.
+InterviewSelect is a two-sided marketplace that expands on interview.io by enabling freelance interviewers to monetize their expertise while helping companies source vetted technical interviewers on demand. The platform combines transparent freelancer profiles, direct booking flows, and built-in interview tooling to deliver an end-to-end hiring augmentation solution. This repository aggregates product requirements, architecture decisions, and deployment practices that guide the future implementation.
 
 ## Core Capabilities
 - **Freelancer registration and profiles**: Interviewers publish rich profiles with LinkedIn links, certifications, prior employers, years of experience, domains (system design, ML, etc.), configurable per-interview pricing, and synced availability calendars.
@@ -99,6 +99,13 @@ InterviewSelect employs a serverless microservices architecture on AWS:
 - Launch native mobile applications with offline-first interview support.
 - Integrate diversity-aware analytics and bias detection into reporting pipelines.
 - Offer marketplace extensions for coaching, learning resources, and community engagement.
+
+## Documentation Index
+- [Requirements Specification](docs/requirements.md)
+- [Architecture Design](docs/architecture.md)
+- [Deployment Guide](docs/deployment-guide.md)
+
+These documents provide deeper detail for product scoping, system design, and operational readiness.
 
 ## License
 This project is licensed under the terms of the [MIT License](LICENSE).
